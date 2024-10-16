@@ -3,51 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR Project - 3D Model Interaction</title>
+    <title>Basic AR Project</title>
+    <!-- A-Frame and AR.js scripts -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.7.0/aframe/build/aframe-ar.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
+    <!-- AR scene setup -->
     <a-scene embedded arjs>
+        <!-- The marker image -->
         <a-marker preset="custom" type="pattern" url="marker.patt">
-            <a-box
-                color="blue"
-                scale="0.5 0.5 0.5"
-                position="0 0.5 0"
-                rotation="0 45 0"
-                gesture-handler>
-            </a-box>
+            <!-- Basic Box Model to appear on marker -->
+            <a-box color="blue" scale="0.5 0.5 0.5" position="0 0.5 0"></a-box>
         </a-marker>
 
+        <!-- The AR camera -->
         <a-entity camera></a-entity>
     </a-scene>
-
-    <script>
-        // Basic example of zoom/rotate using mouse or touch gestures
-        AFRAME.registerComponent('gesture-handler', {
-            schema: {
-                enabled: {default: true}
-            },
-            init: function () {
-                var el = this.el;
-                var scale = 1;
-                var rotation = {x: 0, y: 0};
-
-                // Add event listener for gestures (zoom & rotate)
-                el.addEventListener('wheel', function (event) {
-                    scale += event.deltaY * -0.01; // Zoom in/out
-                    scale = Math.min(Math.max(.1, scale), 3); // Limits the zoom
-                    el.setAttribute('scale', `${scale} ${scale} ${scale}`);
-                });
-
-                el.addEventListener('mousemove', function (event) {
-                    if (event.buttons === 1) { // Left mouse button
-                        rotation.y += event.movementX * 0.5; // Horizontal rotation
-                        el.setAttribute('rotation', `${rotation.x} ${rotation.y} ${rotation.z}`);
-                    }
-                });
-            }
-        });
-    </script>
 </body>
 </html>
